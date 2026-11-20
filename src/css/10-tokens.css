@@ -80,6 +80,37 @@
     --f-warning-soft: color-mix(in oklch, var(--f-warning) 16%, transparent);
     --f-danger-soft: color-mix(in oklch, var(--f-danger) 16%, transparent);
     --f-info-soft: color-mix(in oklch, var(--f-info) 16%, transparent);
+    /* Chart series, in a fixed order: never cycle them or pick by rank. Neighbors step in
+       lightness as well as hue, so they stay apart for color-blind readers; the steps flip
+       between themes so slot 1 always stands out most. Data marks only (bars, fills, legend keys),
+       never text or UI: they run at chroma 0.105, above the 0.08 of every other color. */
+    --f-chart-1: var(--f-unless-light, oklch(0.665 0.105 255))
+      var(--f-unless-dark, oklch(0.44 0.105 255));
+    --f-chart-2: var(--f-unless-light, oklch(0.54 0.105 330))
+      var(--f-unless-dark, oklch(0.62 0.105 330));
+    --f-chart-3: var(--f-unless-light, oklch(0.6 0.105 55))
+      var(--f-unless-dark, oklch(0.53 0.105 55));
+    --f-chart-4: var(--f-unless-light, oklch(0.665 0.105 295))
+      var(--f-unless-dark, oklch(0.44 0.105 295));
+    --f-chart-5: var(--f-unless-light, oklch(0.54 0.105 165))
+      var(--f-unless-dark, oklch(0.62 0.105 165));
+    /* Magnitude, low to high: one hue in five lightness steps, faint to strong on each theme.
+       These are Slate, for browsers without relative colors; the @supports block below takes the
+       accent's hue and chroma instead. */
+    --f-seq-1: var(--f-unless-light, oklch(0.48 0.06 255))
+      var(--f-unless-dark, oklch(0.72 0.07 255));
+    --f-seq-2: var(--f-unless-light, oklch(0.56 0.06 255))
+      var(--f-unless-dark, oklch(0.63 0.07 255));
+    --f-seq-3: var(--f-unless-light, oklch(0.64 0.06 255))
+      var(--f-unless-dark, oklch(0.54 0.07 255));
+    --f-seq-4: var(--f-unless-light, oklch(0.72 0.06 255))
+      var(--f-unless-dark, oklch(0.45 0.07 255));
+    --f-seq-5: var(--f-unless-light, oklch(0.8 0.06 255)) var(--f-unless-dark, oklch(0.36 0.07 255));
+    /* Status icons, drawn as masks in currentColor by alerts and meters. */
+    --f-icon-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='8' cy='8' r='6.2'/%3E%3Cpath d='M8 7.2v3.6M8 5.1v.1'/%3E%3C/svg%3E");
+    --f-icon-success: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8' cy='8' r='6.2'/%3E%3Cpath d='m5.3 8.2 1.8 1.8 3.6-3.8'/%3E%3C/svg%3E");
+    --f-icon-warning: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 2.2 14.2 13H1.8z'/%3E%3Cpath d='M8 6.6v3M8 11.6v.1'/%3E%3C/svg%3E");
+    --f-icon-danger: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='8' cy='8' r='6.2'/%3E%3Cpath d='m5.9 5.9 4.2 4.2M10.1 5.9l-4.2 4.2'/%3E%3C/svg%3E");
     --f-glass-bg: var(--f-unless-light, color-mix(in oklch, var(--f-bg) 62%, transparent))
       var(--f-unless-dark, color-mix(in oklch, var(--f-bg) 72%, transparent));
     --f-glass-blur: 16px;
@@ -142,6 +173,23 @@
     .f-hero {
       --f-accent-deep: oklch(from var(--f-accent) 0.42 min(c, 0.06) h);
       --f-on-accent-deep: oklch(from var(--f-accent) 0.97 min(c, 0.008) h);
+    }
+  }
+
+  /* The magnitude ramp in the accent's hue and chroma (see the Slate values above), so it follows
+     the site's accent and keeps its lightness steps on every hue. */
+  @supports (color: oklch(from red 0.42 c h)) {
+    :root {
+      --f-seq-1: var(--f-unless-light, oklch(from var(--f-accent) 0.48 c h))
+        var(--f-unless-dark, oklch(from var(--f-accent) 0.72 c h));
+      --f-seq-2: var(--f-unless-light, oklch(from var(--f-accent) 0.56 c h))
+        var(--f-unless-dark, oklch(from var(--f-accent) 0.63 c h));
+      --f-seq-3: var(--f-unless-light, oklch(from var(--f-accent) 0.64 c h))
+        var(--f-unless-dark, oklch(from var(--f-accent) 0.54 c h));
+      --f-seq-4: var(--f-unless-light, oklch(from var(--f-accent) 0.72 c h))
+        var(--f-unless-dark, oklch(from var(--f-accent) 0.45 c h));
+      --f-seq-5: var(--f-unless-light, oklch(from var(--f-accent) 0.8 c h))
+        var(--f-unless-dark, oklch(from var(--f-accent) 0.36 c h));
     }
   }
 

@@ -6,8 +6,8 @@
     <title data-zh="色彩 · facet">Color · facet</title>
     <meta
       name="description"
-      content="facet's low-saturation color system: a cool neutral ramp, thirteen per-site accents, near-neutrals and status colors, all at 4.5:1 contrast."
-      data-zh="facet 的低饱和色彩系统：冷调中性色阶、十三种网站强调色、近中性色和状态色，对比度都在 4.5:1 以上。"
+      content="facet's low-saturation color system: a cool neutral ramp, thirteen per-site accents, status colors and colorblind-safe chart colors."
+      data-zh="facet 的低饱和色彩系统：冷调中性色阶、十三种网站强调色、状态色，以及色盲也能分清的图表色。"
     />
     <script src="site.js"></script>
     <link rel="stylesheet" href="dist/facet.css" />
@@ -224,6 +224,100 @@
           <span data-zh="这是一个虚构的示例网站。">This is a fictional sample site.</span>
         </div>
       </section>
+
+      <section id="charts">
+        <h2 data-zh="图表色">Chart colors</h2>
+        <p
+          data-zh="五种系列色，只用于数据图形（柱子、填充、图例色块），按固定顺序使用。相邻两色不只色相不同，亮度也错开一档，所以色盲读者也能分清；深色主题里第一色最亮，浅色主题里最深。这是 facet 唯一超过 C 0.08 的地方：系列色用 C 0.105，刚好高过让颜色不至于发灰的下限（0.10）。文字从不用系列色。"
+        >
+          Five series colors, for data marks only (bars, fills, legend keys), used in a fixed order.
+          Neighbors differ in lightness as well as hue, so they stay apart for color-blind readers;
+          slot 1 is the brightest on dark and the deepest on light. This is the one place facet goes
+          above C 0.08: series colors sit at C 0.105, just past the floor (0.10) below which a hue
+          reads as gray. Text never wears a series color.
+        </p>
+        <div class="site-grid">
+          <div
+            class="site-series"
+            style="--sw-d: oklch(0.665 0.105 255); --sw-l: oklch(0.44 0.105 255)"
+          >
+            <div class="site-series__sw"><span></span><span></span></div>
+            <div class="site-tile__meta">
+              <b>1 · Slate</b> <span class="f-meta">石板</span>
+              <code>--f-chart-1 · hue 255 · L 0.665 / 0.44</code>
+              <span class="site-series__ratio"></span>
+            </div>
+          </div>
+          <div
+            class="site-series"
+            style="--sw-d: oklch(0.54 0.105 330); --sw-l: oklch(0.62 0.105 330)"
+          >
+            <div class="site-series__sw"><span></span><span></span></div>
+            <div class="site-tile__meta">
+              <b>2 · Heather</b> <span class="f-meta">石南</span>
+              <code>--f-chart-2 · hue 330 · L 0.54 / 0.62</code>
+              <span class="site-series__ratio"></span>
+            </div>
+          </div>
+          <div
+            class="site-series"
+            style="--sw-d: oklch(0.6 0.105 55); --sw-l: oklch(0.53 0.105 55)"
+          >
+            <div class="site-series__sw"><span></span><span></span></div>
+            <div class="site-tile__meta">
+              <b>3 · Clay</b> <span class="f-meta">陶土</span>
+              <code>--f-chart-3 · hue 55 · L 0.6 / 0.53</code>
+              <span class="site-series__ratio"></span>
+            </div>
+          </div>
+          <div
+            class="site-series"
+            style="--sw-d: oklch(0.665 0.105 295); --sw-l: oklch(0.44 0.105 295)"
+          >
+            <div class="site-series__sw"><span></span><span></span></div>
+            <div class="site-tile__meta">
+              <b>4 · Lavender</b> <span class="f-meta">薰衣草</span>
+              <code>--f-chart-4 · hue 295 · L 0.665 / 0.44</code>
+              <span class="site-series__ratio"></span>
+            </div>
+          </div>
+          <div
+            class="site-series"
+            style="--sw-d: oklch(0.54 0.105 165); --sw-l: oklch(0.62 0.105 165)"
+          >
+            <div class="site-series__sw"><span></span><span></span></div>
+            <div class="site-tile__meta">
+              <b>5 · Sage</b> <span class="f-meta">鼠尾草</span>
+              <code>--f-chart-5 · hue 165 · L 0.54 / 0.62</code>
+              <span class="site-series__ratio"></span>
+            </div>
+          </div>
+        </div>
+        <p
+          data-zh="用调色板校验工具对 <code>--f-bg-2</code> 检查过两种主题：相邻两色在红色盲和绿色盲模拟下 ΔE ≥ 13，正常视觉 ΔE ≥ 15.5，对比度都在 3:1 以上；前三色两两之间也都通过，可以用在任意两点都可能相邻的图里。数字是对 <code>--f-bg-2</code> 的对比度。"
+        >
+          Checked with a palette validator against <code>--f-bg-2</code> in both themes: neighbors
+          stay ΔE ≥ 13 apart under simulated protanopia and deuteranopia and ΔE ≥ 15.5 for full
+          color vision, all at 3:1 contrast or more; the first three also pass pairwise, for charts
+          where any two marks can touch. The ratios are against <code>--f-bg-2</code>.
+        </p>
+        <h3 data-zh="数量色阶">Magnitude ramp</h3>
+        <p
+          data-zh="表示多少（热力图、分档）用一个色相的五级亮度，从淡到浓：<code>--f-seq-1</code> 到 <code>--f-seq-5</code>。色相和饱和度取自强调色，所以会跟着网站走；用工具栏的圆点试试。最淡的一级对背景仍有 2:1。"
+        >
+          Magnitude (a heatmap, ordered buckets) takes one hue in five lightness steps, faint to
+          strong: <code>--f-seq-1</code> to <code>--f-seq-5</code>. Hue and chroma come from the
+          accent, so the ramp follows the site; try the dots in the toolbar. The faintest step still
+          keeps 2:1 against the background.
+        </p>
+        <div class="site-ramp" aria-label="Magnitude ramp">
+          <span style="background: var(--f-seq-1)">1</span
+          ><span style="background: var(--f-seq-2)">2</span
+          ><span style="background: var(--f-seq-3)">3</span
+          ><span style="background: var(--f-seq-4)">4</span
+          ><span style="background: var(--f-seq-5)">5</span>
+        </div>
+      </section>
     </main>
 
     <script>
@@ -248,6 +342,14 @@
         return (hi + 0.05) / (lo + 0.05);
       };
       const BG = [rgb("oklch(0.2 0.012 260)"), rgb("oklch(0.975 0.004 260)")];
+      // Chart series against the chart surface (--f-bg-2) of each theme.
+      const SURFACE = [rgb("oklch(0.23 0.012 260)"), rgb("oklch(0.955 0.006 260)")];
+      for (const tile of document.querySelectorAll(".site-series")) {
+        const [d, l] = [...tile.querySelectorAll(".site-series__sw span")].map((s, i) =>
+          ratio(rgb(getComputedStyle(s).backgroundColor), SURFACE[i]).toFixed(1),
+        );
+        tile.querySelector(".site-series__ratio").textContent = `dark ${d}:1 · light ${l}:1`;
+      }
       for (const tile of document.querySelectorAll(".site-tile")) {
         const spans = tile.querySelectorAll(".site-tile__sw span");
         spans.forEach((s, i) => {

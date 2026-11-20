@@ -50,7 +50,9 @@ rules (`[hidden]`, the reduced-motion block); keep it to those two.
   `var(--f-unless-light, <dark>) var(--f-unless-dark, <light>)`: never a per-theme block, never a
   token for one theme only.
 - **Low saturation.** In OKLCH, accents at chroma 0.08 or below, neutrals 0.02 or below; no
-  saturated hues anywhere, illustrations and semantic colors included.
+  saturated hues anywhere, illustrations and semantic colors included. One exception: the chart
+  series colors (`--f-chart-*`), on data marks only, at chroma 0.105, the least a series hue needs
+  to stay distinct; record and validate any change on `site/color.html`.
 - **Accents** vary by hue only: `oklch(0.76 0.06 H)` dark, `oklch(0.52 0.07 H)` light; never raise
   chroma or change lightness to stand out. A new one takes a free hue at least 30° from the others
   on `site/color.html` (record it there), guided by the project's imagery; a family of related sites

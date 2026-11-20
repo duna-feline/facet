@@ -1,0 +1,399 @@
+@layer facet.components {
+  /* Charts in plain HTML: stat tiles, meters, bar charts (single or stacked), legends and small
+     multiples. Values are custom properties a page writes by hand: --v on a mark and --max on
+     the chart (default 1, so --v can be a fraction). Marks take their color from --f-c, set by
+     .f-series-1 to 5 (the fixed --f-chart-* order); text always stays in the text colors.
+     Every chart has a text alternative: the values sit in the markup as text, and a table view
+     can follow it. chart.js adds the hover and keyboard tooltip. */
+  .f-series-1 {
+    --f-c: var(--f-chart-1);
+  }
+
+  .f-series-2 {
+    --f-c: var(--f-chart-2);
+  }
+
+  .f-series-3 {
+    --f-c: var(--f-chart-3);
+  }
+
+  .f-series-4 {
+    --f-c: var(--f-chart-4);
+  }
+
+  .f-series-5 {
+    --f-c: var(--f-chart-5);
+  }
+
+  /* Stat tiles: a label, one number, a line of context. */
+  .f-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(11rem, 100%), 1fr));
+    gap: var(--f-space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .f-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--f-space-1);
+    min-width: 0;
+    padding: var(--f-space-4) var(--f-space-5);
+    border: 1px solid var(--f-line);
+    border-radius: var(--f-r-lg);
+    background: var(--f-bg-2);
+  }
+
+  .f-stat > * {
+    margin: 0;
+  }
+
+  .f-stat__label {
+    color: var(--f-fg-2);
+    font: 600 var(--f-text-sm) / 1.35 var(--f-font-sans);
+  }
+
+  /* Proportional figures: a lone large number looks loose with tabular ones. */
+  .f-stat__value {
+    color: var(--f-fg);
+    font: 600 var(--f-text-2xl) / 1.15 var(--f-font-serif);
+    font-variant-numeric: lining-nums proportional-nums;
+    overflow-wrap: anywhere;
+  }
+
+  .f-stat__unit {
+    margin-left: 0.15em;
+    color: var(--f-fg-2);
+    font: 500 0.5em var(--f-font-sans);
+  }
+
+  .f-stat__context {
+    color: var(--f-fg-2);
+    font-size: var(--f-text-sm);
+  }
+
+  /* A chart card: a title, an optional legend, the plot, an optional table view. */
+  .f-chart {
+    display: flex;
+    flex-direction: column;
+    gap: var(--f-space-3);
+    min-width: 0;
+    margin: 0;
+    padding: var(--f-space-4) var(--f-space-5) var(--f-space-5);
+    border: 1px solid var(--f-line);
+    border-radius: var(--f-r-lg);
+    background: var(--f-bg-2);
+  }
+
+  .f-chart__head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .f-chart__title {
+    color: var(--f-fg);
+    font: 600 var(--f-text-md) / 1.35 var(--f-font-sans);
+  }
+
+  .f-chart__sub {
+    color: var(--f-fg-2);
+    font-size: var(--f-text-sm);
+  }
+
+  /* Small multiples: one chart per series, on one shared --max set here. */
+  .f-multiples {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr));
+    gap: var(--f-space-3);
+  }
+
+  /* Legend: a key in the series color beside text in the text color. */
+  .f-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--f-space-1) var(--f-space-4);
+    margin: 0;
+    padding: 0;
+    color: var(--f-fg-2);
+    font-size: var(--f-text-sm);
+    list-style: none;
+  }
+
+  .f-legend > li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .f-legend > li::before {
+    content: "";
+    flex: none;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 3px;
+    background: var(--f-c, var(--f-chart-1));
+  }
+
+  /* Meter: how much of a whole is used. The track is a faint step of the fill's own color. */
+  .f-meter {
+    --_c: var(--f-accent);
+    display: flex;
+    flex-direction: column;
+    gap: var(--f-space-2);
+    min-width: 0;
+  }
+
+  .f-meter--warning {
+    --_c: var(--f-warning);
+    --_icon: var(--f-icon-warning);
+  }
+
+  .f-meter--danger {
+    --_c: var(--f-danger);
+    --_icon: var(--f-icon-danger);
+  }
+
+  .f-meter__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 var(--f-space-3);
+    font-size: var(--f-text-sm);
+  }
+
+  .f-meter__label {
+    color: var(--f-fg);
+    font-weight: 600;
+  }
+
+  .f-meter__value {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--f-fg-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* A warning or danger meter carries an icon here; its text must say why, in words. */
+  :is(.f-meter--warning, .f-meter--danger) .f-meter__value::before {
+    content: "";
+    flex: none;
+    width: 1em;
+    height: 1em;
+    background: var(--_c);
+    mask: var(--_icon) center / contain no-repeat;
+  }
+
+  .f-meter__track {
+    height: 0.5rem;
+    overflow: hidden;
+    border-radius: var(--f-r-pill);
+    background: color-mix(in oklch, var(--_c) 20%, transparent);
+  }
+
+  .f-meter__fill {
+    display: block;
+    width: calc(clamp(0, var(--v, 0) / var(--max, 1), 1) * 100%);
+    height: 100%;
+    border-radius: var(--f-r-pill);
+    background: var(--_c);
+  }
+
+  .f-meter__context {
+    margin: 0;
+    color: var(--f-fg-2);
+    font-size: var(--f-text-xs);
+  }
+
+  /* Bar chart: columns from one baseline, a recessive grid, one y-axis. Each column holds its
+     x label and a .f-bars__tip text (both read by screen readers) before its bars; bars stack
+     upward in source order, each on its own --v, and the top one gets the rounded end. */
+  .f-bars {
+    --h: 10rem;
+    position: relative;
+    display: flex;
+    gap: var(--f-space-2);
+    min-width: 0;
+    padding-bottom: calc(1lh + var(--f-space-2));
+    color: var(--f-fg-2);
+    font: var(--f-text-xs) / 1.3 var(--f-font-sans);
+  }
+
+  .f-bars__y {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(var(--h) + 1em);
+    margin: -0.5em 0 0;
+    padding: 0;
+    line-height: 1em;
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+    list-style: none;
+  }
+
+  .f-bars__plot {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    flex: 1;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    gap: 2px;
+    min-width: 0;
+    height: var(--h);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Hairline gridlines at each tick, and a firmer baseline. */
+  .f-bars__plot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    border-bottom: 1px solid var(--f-line-2);
+    background: linear-gradient(var(--f-line) 1px, transparent 0) 0 0 / 100%
+      calc(var(--h) / (var(--ticks, 3) - 1));
+  }
+
+  .f-bars__col {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    min-width: 0;
+    outline: none;
+  }
+
+  /* The column under the pointer or the keyboard gets a faint band. */
+  .f-bars__col::before {
+    content: "";
+    position: absolute;
+    inset: 0 -1px;
+    z-index: -1;
+    border-radius: var(--f-r-xs);
+    background: color-mix(in oklch, var(--f-fg) 6%, transparent);
+    opacity: 0;
+  }
+
+  .f-bars__col:hover::before,
+  .f-bars__col.is-active::before {
+    opacity: 1;
+  }
+
+  .f-bars__bar {
+    flex: none;
+    width: min(24px, 100%);
+    height: calc(clamp(0, var(--v, 0) / var(--max, 1), 1) * var(--h));
+    background: var(--f-c, var(--f-chart-1));
+  }
+
+  /* A 2px gap between stacked parts, taken out of the upper part, so totals stay to scale. */
+  .f-bars__bar + .f-bars__bar {
+    padding-bottom: 2px;
+    background-clip: content-box;
+  }
+
+  .f-bars__bar:last-child {
+    border-radius: 4px 4px 0 0;
+  }
+
+  .f-bars__x {
+    position: absolute;
+    top: calc(100% + var(--f-space-2));
+    left: 50%;
+    translate: -50% 0;
+    white-space: nowrap;
+  }
+
+  .f-bars__tip {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* The tooltip chart.js places over the active mark. */
+  .f-tooltip {
+    position: absolute;
+    z-index: 5;
+    width: max-content;
+    max-width: min(16rem, 100%);
+    padding: 0.45rem 0.7rem;
+    border: 1px solid var(--f-glass-edge);
+    border-radius: var(--f-r-sm);
+    background: color-mix(in oklch, var(--f-bg) 94%, transparent);
+    -webkit-backdrop-filter: blur(var(--f-glass-blur));
+    backdrop-filter: blur(var(--f-glass-blur));
+    box-shadow: var(--f-shadow);
+    color: var(--f-fg);
+    font: var(--f-text-xs) / 1.45 var(--f-font-sans);
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+  }
+
+  .f-tooltip b {
+    display: block;
+    font-weight: 600;
+  }
+
+  /* Table view: the same numbers as text, one click away. */
+  .f-chart__table > summary {
+    width: fit-content;
+    color: var(--f-fg-2);
+    font-size: var(--f-text-sm);
+    cursor: pointer;
+  }
+
+  .f-chart__table > div {
+    margin-top: var(--f-space-2);
+    overflow-x: auto;
+  }
+
+  .f-chart__table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--f-text-sm);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .f-chart__table :is(th, td) {
+    padding: 0.35rem 0.6rem;
+    border-bottom: 1px solid var(--f-line);
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  .f-chart__table :is(th:first-child, td:first-child) {
+    text-align: start;
+  }
+
+  .f-chart__table th {
+    color: var(--f-fg-2);
+    font-weight: 600;
+  }
+
+  /* High contrast mode drops background colors: draw the marks in the text color. */
+  @media (forced-colors: active) {
+    .f-bars__bar,
+    .f-meter__fill,
+    .f-legend > li::before {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+
+    .f-meter__track {
+      border: 1px solid CanvasText;
+    }
+  }
+}

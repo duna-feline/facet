@@ -15,6 +15,7 @@ import * as panels from "./panels.js";
 import * as deck from "./deck.js";
 import * as typewriter from "./typewriter.js";
 import * as variants from "./variants.js";
+import * as chart from "./chart.js";
 
 const modules = {
   analytics,
@@ -28,6 +29,7 @@ const modules = {
   deck,
   typewriter,
   variants,
+  chart,
 };
 
 // Initializes every module under root. One module that throws is reported and skipped, so the
