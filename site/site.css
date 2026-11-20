@@ -377,3 +377,59 @@
   margin: 0 auto var(--f-space-6);
   text-align: center;
 }
+
+/* Chart series tiles (color.html): each color on the chart surface of its theme. */
+.site-series {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--f-line);
+  border-radius: var(--f-r-lg);
+  background: var(--f-bg-2);
+}
+
+.site-series__sw {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.site-series__sw span {
+  height: 4rem;
+  border: 1.1rem solid;
+  border-inline-width: 1.6rem;
+}
+
+.site-series__sw span:first-child {
+  border-color: oklch(0.23 0.012 260);
+  background: var(--sw-d);
+}
+
+.site-series__sw span:last-child {
+  border-color: oklch(0.955 0.006 260);
+  background: var(--sw-l);
+}
+
+.site-series__ratio {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--f-fg-2);
+  font: 0.72rem/1.5 var(--f-font-mono);
+}
+
+.site-ramp {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 2px;
+  max-width: 32rem;
+}
+
+.site-ramp span {
+  height: 3rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: var(--f-r-xs);
+  color: var(--f-fg-2);
+  font: 600 0.62rem/1 var(--f-font-mono);
+}
+
+.site-ramp span:nth-child(n + 4) {
+  color: var(--f-bg);
+}

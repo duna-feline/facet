@@ -6,8 +6,8 @@
     <title data-zh="组件 · facet">Components · facet</title>
     <meta
       name="description"
-      content="facet's components with their markup: nav, buttons, chips, segmented control, inputs, cards, code, alerts, sheet, table of contents and footer."
-      data-zh="facet 的组件和它们的标记：导航、按钮、标签、分段控件、输入框、卡片、代码、提示、弹出面板、目录和页脚。"
+      content="facet's components with their markup: nav, buttons, chips, segmented control, inputs, cards, charts, code, alerts, sheet, table of contents and footer."
+      data-zh="facet 的组件和它们的标记：导航、按钮、标签、分段控件、输入框、卡片、图表、代码、提示、弹出面板、目录和页脚。"
     />
     <script src="site.js"></script>
     <link rel="stylesheet" href="dist/facet.css" />
@@ -696,6 +696,620 @@
     &lt;span class="f-gallery__label"&gt;Board one&lt;/span&gt;
   &lt;/li&gt;
 &lt;/ul&gt;</pre>
+        </details>
+      </section>
+
+      <section id="stats">
+        <h2 data-zh="统计卡片">Stat tiles</h2>
+        <p
+          data-zh="一个数字就能说清的事，不画图：一个标签、一个数字、一行背景说明。数字用衬线体和比例数字；说明文字写清楚和什么比较。"
+        >
+          When one number tells the story, skip the chart: a label, the number, and one line of
+          context. The number is serif with proportional figures; the context says what it is
+          compared with.
+        </p>
+        <ul class="f-stats">
+          <li class="f-stat">
+            <p class="f-stat__label" data-zh="完成的任务">Tasks done</p>
+            <p class="f-stat__value">128</p>
+            <p class="f-stat__context" data-zh="比上周多 14 个">14 more than last week</p>
+          </li>
+          <li class="f-stat">
+            <p class="f-stat__label" data-zh="通过率">Pass rate</p>
+            <p class="f-stat__value">87<span class="f-stat__unit">%</span></p>
+            <p class="f-stat__context" data-zh="342 次尝试">Of 342 attempts</p>
+          </li>
+          <li class="f-stat">
+            <p class="f-stat__label" data-zh="中位耗时">Median time</p>
+            <p class="f-stat__value">14<span class="f-stat__unit" data-zh="分钟">min</span></p>
+            <p class="f-stat__context" data-zh="上周是 18 分钟">Down from 18 min</p>
+          </li>
+          <li class="f-stat">
+            <p class="f-stat__label" data-zh="待回答的问题">Open questions</p>
+            <p class="f-stat__value">3</p>
+            <p class="f-stat__context" data-zh="最早的一个已等 2 天">Oldest waits 2 days</p>
+          </li>
+        </ul>
+        <details class="site-markup">
+          <summary data-zh="标记">Markup</summary>
+          <pre class="f-code">
+&lt;ul class="f-stats"&gt;
+  &lt;li class="f-stat"&gt;
+    &lt;p class="f-stat__label"&gt;Pass rate&lt;/p&gt;
+    &lt;p class="f-stat__value"&gt;87&lt;span class="f-stat__unit"&gt;%&lt;/span&gt;&lt;/p&gt;
+    &lt;p class="f-stat__context"&gt;Of 342 attempts&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</pre>
+        </details>
+      </section>
+
+      <section id="meters">
+        <h2 data-zh="用量条">Meters</h2>
+        <p
+          data-zh="一个整体用了多少，比如额度。填充用强调色，底轨是同一颜色的浅色。快到上限时换成警告色或危险色，并且总是带图标和文字说明，不只靠颜色。<code>--v</code> 是用掉的比例（或者配合 <code>--max</code> 写原始数值），<code>aria-valuenow</code> 写同一个数。"
+        >
+          How much of a whole is used, such as a quota. The fill is the accent and the track a faint
+          step of the same color. Near a limit it switches to the warning or danger color, always
+          with an icon and words, never color alone. <code>--v</code> is the share used (or a raw
+          value with <code>--max</code>), and <code>aria-valuenow</code> carries the same number.
+        </p>
+        <div class="f-stack">
+          <div class="f-meter" id="demo-meter" style="--v: 0.62">
+            <div class="f-meter__head">
+              <span class="f-meter__label" id="meter-window" data-zh="用量窗口">Usage window</span>
+              <span class="f-meter__value">62%</span>
+            </div>
+            <div
+              class="f-meter__track"
+              role="meter"
+              aria-labelledby="meter-window"
+              aria-valuenow="62"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuetext="62%"
+            >
+              <span class="f-meter__fill"></span>
+            </div>
+            <p class="f-meter__context" data-zh="2 小时 10 分钟后重置">Resets in 2 h 10 min</p>
+          </div>
+          <div class="f-meter f-meter--warning" style="--v: 0.88">
+            <div class="f-meter__head">
+              <span class="f-meter__label" id="meter-week" data-zh="本周额度">Weekly quota</span>
+              <span class="f-meter__value" data-zh="88%，接近上限">88%, near the limit</span>
+            </div>
+            <div
+              class="f-meter__track"
+              role="meter"
+              aria-labelledby="meter-week"
+              aria-valuenow="88"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuetext="88%, near the limit"
+            >
+              <span class="f-meter__fill"></span>
+            </div>
+          </div>
+          <div class="f-meter" style="--v: 3.1; --max: 10">
+            <div class="f-meter__head">
+              <span class="f-meter__label" id="meter-disk" data-zh="工作区磁盘"
+                >Workspace disk</span
+              >
+              <span class="f-meter__value">3.1 / 10 GB</span>
+            </div>
+            <div
+              class="f-meter__track"
+              role="meter"
+              aria-labelledby="meter-disk"
+              aria-valuenow="3.1"
+              aria-valuemin="0"
+              aria-valuemax="10"
+              aria-valuetext="3.1 of 10 GB"
+            >
+              <span class="f-meter__fill"></span>
+            </div>
+          </div>
+        </div>
+        <details class="site-markup">
+          <summary data-zh="标记">Markup</summary>
+          <pre class="f-code">
+&lt;div class="f-meter" style="--v: 0.62"&gt;
+  &lt;div class="f-meter__head"&gt;
+    &lt;span class="f-meter__label" id="usage"&gt;Usage window&lt;/span&gt;
+    &lt;span class="f-meter__value"&gt;62%&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="f-meter__track" role="meter" aria-labelledby="usage"
+    aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" aria-valuetext="62%"&gt;
+    &lt;span class="f-meter__fill"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;p class="f-meter__context"&gt;Resets in 2 h 10 min&lt;/p&gt;
+&lt;/div&gt;
+&lt;!-- Near a limit: class="f-meter f-meter--warning" (or --danger), and say so in words --&gt;</pre>
+        </details>
+      </section>
+
+      <section id="bars">
+        <h2 data-zh="柱状图">Bar charts</h2>
+        <p
+          data-zh="细柱从同一条基线长出，网格线和坐标轴都很淡，只有一个纵轴。每一列先写横轴标签和一段 <code>.f-bars__tip</code> 文字（读屏软件会读出来），再写柱子；<code>--v</code> 是数值，<code>--max</code> 是纵轴的最大值。几根柱子写在同一列里就会向上堆叠，中间留 2px 的缝，最上面一段是圆角。加载 <code>chart.js</code> 后，鼠标悬停、轻点或用方向键都会显示提示框。"
+        >
+          Thin columns grow from one baseline, over a faint grid and a single y-axis. Each column
+          holds its x label and a <code>.f-bars__tip</code> text (read by screen readers) before its
+          bars; <code>--v</code> is a value and <code>--max</code> the top of the y-axis. Bars in
+          one column stack upward with a 2px gap, and the top one gets the rounded end. With
+          <code>chart.js</code>, hover, a tap or the arrow keys show a tooltip.
+        </p>
+        <figure class="f-chart" id="demo-chart">
+          <figcaption class="f-chart__head">
+            <span class="f-chart__title" id="chart-attempts" data-zh="每天的尝试次数"
+              >Attempts per day</span
+            >
+            <span class="f-chart__sub" data-zh="最近 7 天">Last 7 days</span>
+          </figcaption>
+          <div
+            class="f-bars"
+            role="group"
+            aria-labelledby="chart-attempts"
+            data-f-chart
+            style="--max: 40; --ticks: 3"
+          >
+            <div class="f-bars__y" aria-hidden="true">
+              <span>40</span><span>20</span><span>0</span>
+            </div>
+            <ol class="f-bars__plot">
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周一">Mon</span
+                ><span class="f-bars__tip" data-zh="18 次尝试">18 attempts</span
+                ><span class="f-bars__bar" style="--v: 18"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周二">Tue</span
+                ><span class="f-bars__tip" data-zh="26 次尝试">26 attempts</span
+                ><span class="f-bars__bar" style="--v: 26"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周三">Wed</span
+                ><span class="f-bars__tip" data-zh="31 次尝试">31 attempts</span
+                ><span class="f-bars__bar" style="--v: 31"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周四">Thu</span
+                ><span class="f-bars__tip" data-zh="22 次尝试">22 attempts</span
+                ><span class="f-bars__bar" style="--v: 22"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周五">Fri</span
+                ><span class="f-bars__tip" data-zh="35 次尝试">35 attempts</span
+                ><span class="f-bars__bar" style="--v: 35"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周六">Sat</span
+                ><span class="f-bars__tip" data-zh="12 次尝试">12 attempts</span
+                ><span class="f-bars__bar" style="--v: 12"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周日">Sun</span
+                ><span class="f-bars__tip" data-zh="9 次尝试">9 attempts</span
+                ><span class="f-bars__bar" style="--v: 9"></span>
+              </li>
+            </ol>
+          </div>
+          <details class="f-chart__table">
+            <summary data-zh="表格">Table</summary>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col" data-zh="日期">Day</th>
+                    <th scope="col" data-zh="尝试次数">Attempts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" data-zh="周一">Mon</th>
+                    <td>18</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周二">Tue</th>
+                    <td>26</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周三">Wed</th>
+                    <td>31</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周四">Thu</th>
+                    <td>22</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周五">Fri</th>
+                    <td>35</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周六">Sat</th>
+                    <td>12</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周日">Sun</th>
+                    <td>9</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </figure>
+        <figure class="f-chart" id="demo-stack">
+          <figcaption class="f-chart__head">
+            <span class="f-chart__title" id="chart-workers" data-zh="每位成员完成的任务"
+              >Tasks done by each worker</span
+            >
+            <span class="f-chart__sub" data-zh="最近 7 天，堆叠">Last 7 days, stacked</span>
+          </figcaption>
+          <ul class="f-legend">
+            <li class="f-series-1" data-zh="嘟娜">Duna</li>
+            <li class="f-series-2" data-zh="嘟嘟">Dudu</li>
+            <li class="f-series-3" data-zh="囔囔">Nangnang</li>
+          </ul>
+          <div
+            class="f-bars"
+            role="group"
+            aria-labelledby="chart-workers"
+            data-f-chart
+            style="--max: 40; --ticks: 3"
+          >
+            <div class="f-bars__y" aria-hidden="true">
+              <span>40</span><span>20</span><span>0</span>
+            </div>
+            <ol class="f-bars__plot">
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周一">Mon</span
+                ><span class="f-bars__tip" data-zh="嘟娜 8 · 嘟嘟 6 · 囔囔 4"
+                  >Duna 8 · Dudu 6 · Nangnang 4</span
+                ><span class="f-bars__bar f-series-1" style="--v: 8"></span
+                ><span class="f-bars__bar f-series-2" style="--v: 6"></span
+                ><span class="f-bars__bar f-series-3" style="--v: 4"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周二">Tue</span
+                ><span class="f-bars__tip" data-zh="嘟娜 11 · 嘟嘟 9 · 囔囔 3"
+                  >Duna 11 · Dudu 9 · Nangnang 3</span
+                ><span class="f-bars__bar f-series-1" style="--v: 11"></span
+                ><span class="f-bars__bar f-series-2" style="--v: 9"></span
+                ><span class="f-bars__bar f-series-3" style="--v: 3"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周三">Wed</span
+                ><span class="f-bars__tip" data-zh="嘟娜 7 · 嘟嘟 12 · 囔囔 8"
+                  >Duna 7 · Dudu 12 · Nangnang 8</span
+                ><span class="f-bars__bar f-series-1" style="--v: 7"></span
+                ><span class="f-bars__bar f-series-2" style="--v: 12"></span
+                ><span class="f-bars__bar f-series-3" style="--v: 8"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周四">Thu</span
+                ><span class="f-bars__tip" data-zh="嘟娜 10 · 嘟嘟 5 · 囔囔 6"
+                  >Duna 10 · Dudu 5 · Nangnang 6</span
+                ><span class="f-bars__bar f-series-1" style="--v: 10"></span
+                ><span class="f-bars__bar f-series-2" style="--v: 5"></span
+                ><span class="f-bars__bar f-series-3" style="--v: 6"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周五">Fri</span
+                ><span class="f-bars__tip" data-zh="嘟娜 13 · 嘟嘟 10 · 囔囔 9"
+                  >Duna 13 · Dudu 10 · Nangnang 9</span
+                ><span class="f-bars__bar f-series-1" style="--v: 13"></span
+                ><span class="f-bars__bar f-series-2" style="--v: 10"></span
+                ><span class="f-bars__bar f-series-3" style="--v: 9"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周六">Sat</span
+                ><span class="f-bars__tip" data-zh="嘟娜 4 · 嘟嘟 3 · 囔囔 2"
+                  >Duna 4 · Dudu 3 · Nangnang 2</span
+                ><span class="f-bars__bar f-series-1" style="--v: 4"></span
+                ><span class="f-bars__bar f-series-2" style="--v: 3"></span
+                ><span class="f-bars__bar f-series-3" style="--v: 2"></span>
+              </li>
+              <li class="f-bars__col">
+                <span class="f-bars__x" data-zh="周日">Sun</span
+                ><span class="f-bars__tip" data-zh="嘟娜 2 · 嘟嘟 4 · 囔囔 1"
+                  >Duna 2 · Dudu 4 · Nangnang 1</span
+                ><span class="f-bars__bar f-series-1" style="--v: 2"></span
+                ><span class="f-bars__bar f-series-2" style="--v: 4"></span
+                ><span class="f-bars__bar f-series-3" style="--v: 1"></span>
+              </li>
+            </ol>
+          </div>
+          <details class="f-chart__table">
+            <summary data-zh="表格">Table</summary>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col" data-zh="日期">Day</th>
+                    <th scope="col" data-zh="嘟娜">Duna</th>
+                    <th scope="col" data-zh="嘟嘟">Dudu</th>
+                    <th scope="col" data-zh="囔囔">Nangnang</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" data-zh="周一">Mon</th>
+                    <td>8</td>
+                    <td>6</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周二">Tue</th>
+                    <td>11</td>
+                    <td>9</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周三">Wed</th>
+                    <td>7</td>
+                    <td>12</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周四">Thu</th>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>6</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周五">Fri</th>
+                    <td>13</td>
+                    <td>10</td>
+                    <td>9</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周六">Sat</th>
+                    <td>4</td>
+                    <td>3</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-zh="周日">Sun</th>
+                    <td>2</td>
+                    <td>4</td>
+                    <td>1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </figure>
+        <ul>
+          <li
+            data-zh="系列颜色按固定顺序使用：<code>.f-series-1</code> 到 <code>.f-series-5</code>，不要循环，也不要按排名换色；一个系列在筛选之后保持原来的颜色。超过五个系列时，把其余的合并成“其他”，或者改用小多图。"
+          >
+            Series colors go in a fixed order, <code>.f-series-1</code> to <code>.f-series-5</code>:
+            never cycle them or pick them by rank, and a series keeps its color when a filter hides
+            others. Past five series, fold the rest into “Other” or use small multiples.
+          </li>
+          <li
+            data-zh="两个或更多系列时总是加图例。文字（数值、标签、图例）一律用文字颜色，系列颜色只用在柱子和图例的色块上。状态色只表示状态，不当第四个系列用。"
+          >
+            Two or more series always get a legend. Text (values, labels, legends) stays in the text
+            colors; series colors are for marks and legend keys only. Status colors mean status and
+            are never “series 4”.
+          </li>
+          <li
+            data-zh="每个图都要有文字版本：列表里的标签和提示文字会被读屏软件读出，<code>.f-chart__table</code> 把同样的数字放进一张表格。提示框只是重复这些文字，不能是读到数值的唯一途径。"
+          >
+            Every chart has a text version: screen readers read each column's label and tip text,
+            and <code>.f-chart__table</code> puts the same numbers in a table. The tooltip repeats
+            that text and is never the only way to a value.
+          </li>
+          <li
+            data-zh="<code>--h</code> 设置绘图区的高度（默认 10rem），<code>--ticks</code> 设置网格线的数量（默认 3，包括基线），要和纵轴标签的个数一致。横轴标签保持简短，它们不换行。"
+          >
+            <code>--h</code> sets the plot height (default 10rem) and <code>--ticks</code> the
+            number of gridlines, baseline included (default 3), to match the y labels. Keep x labels
+            short: they do not wrap.
+          </li>
+        </ul>
+        <details class="site-markup">
+          <summary data-zh="标记">Markup</summary>
+          <pre class="f-code">
+&lt;figure class="f-chart"&gt;
+  &lt;figcaption class="f-chart__head"&gt;
+    &lt;span class="f-chart__title" id="workers"&gt;Tasks done by each worker&lt;/span&gt;
+    &lt;span class="f-chart__sub"&gt;Last 7 days, stacked&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;!-- A legend for two or more series --&gt;
+  &lt;ul class="f-legend"&gt;
+    &lt;li class="f-series-1"&gt;Duna&lt;/li&gt;
+    &lt;li class="f-series-2"&gt;Dudu&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;div class="f-bars" role="group" aria-labelledby="workers" data-f-chart
+    style="--max: 40; --ticks: 3"&gt;
+    &lt;div class="f-bars__y" aria-hidden="true"&gt;&lt;span&gt;40&lt;/span&gt;&lt;span&gt;20&lt;/span&gt;&lt;span&gt;0&lt;/span&gt;&lt;/div&gt;
+    &lt;ol class="f-bars__plot"&gt;
+      &lt;li class="f-bars__col"&gt;
+        &lt;span class="f-bars__x"&gt;Mon&lt;/span&gt;
+        &lt;span class="f-bars__tip"&gt;Duna 8 · Dudu 6&lt;/span&gt;
+        &lt;span class="f-bars__bar f-series-1" style="--v: 8"&gt;&lt;/span&gt;
+        &lt;span class="f-bars__bar f-series-2" style="--v: 6"&gt;&lt;/span&gt;
+      &lt;/li&gt;
+      &lt;!-- … one li per column; one bar for a single series --&gt;
+    &lt;/ol&gt;
+  &lt;/div&gt;
+  &lt;details class="f-chart__table"&gt;
+    &lt;summary&gt;Table&lt;/summary&gt;
+    &lt;div&gt;&lt;table&gt;…&lt;/table&gt;&lt;/div&gt;
+  &lt;/details&gt;
+&lt;/figure&gt;</pre>
+        </details>
+      </section>
+
+      <section id="multiples">
+        <h2 data-zh="小多图">Small multiples</h2>
+        <p
+          data-zh="系列太多、或者要逐个比较时，每个系列画一张小图，并排放在 <code>.f-multiples</code> 里。所有小图共用一个 <code>--max</code>（写在网格上），所以高度可以直接比较；标题说明是哪个系列，所以柱子都用第一种系列色。"
+        >
+          When there are too many series, or each one deserves a look, draw one small chart per
+          series side by side in <code>.f-multiples</code>. They share one <code>--max</code>, set
+          on the grid, so heights compare directly; each title names its series, so every chart uses
+          the first series color.
+        </p>
+        <div class="f-multiples" style="--max: 14; --h: 6rem">
+          <figure class="f-chart">
+            <figcaption class="f-chart__head">
+              <span class="f-chart__title" id="multi-duna" data-zh="嘟娜">Duna</span>
+              <span class="f-chart__sub" data-zh="共 55 个任务">55 tasks</span>
+            </figcaption>
+            <div class="f-bars" role="group" aria-labelledby="multi-duna" data-f-chart>
+              <div class="f-bars__y" aria-hidden="true">
+                <span>14</span><span>7</span><span>0</span>
+              </div>
+              <ol class="f-bars__plot">
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周一">Mon</span
+                  ><span class="f-bars__tip" data-zh="8 个任务">8 tasks</span
+                  ><span class="f-bars__bar" style="--v: 8"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周二">Tue</span
+                  ><span class="f-bars__tip" data-zh="11 个任务">11 tasks</span
+                  ><span class="f-bars__bar" style="--v: 11"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周三">Wed</span
+                  ><span class="f-bars__tip" data-zh="7 个任务">7 tasks</span
+                  ><span class="f-bars__bar" style="--v: 7"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周四">Thu</span
+                  ><span class="f-bars__tip" data-zh="10 个任务">10 tasks</span
+                  ><span class="f-bars__bar" style="--v: 10"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周五">Fri</span
+                  ><span class="f-bars__tip" data-zh="13 个任务">13 tasks</span
+                  ><span class="f-bars__bar" style="--v: 13"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周六">Sat</span
+                  ><span class="f-bars__tip" data-zh="4 个任务">4 tasks</span
+                  ><span class="f-bars__bar" style="--v: 4"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周日">Sun</span
+                  ><span class="f-bars__tip" data-zh="2 个任务">2 tasks</span
+                  ><span class="f-bars__bar" style="--v: 2"></span>
+                </li>
+              </ol>
+            </div>
+          </figure>
+          <figure class="f-chart">
+            <figcaption class="f-chart__head">
+              <span class="f-chart__title" id="multi-dudu" data-zh="嘟嘟">Dudu</span>
+              <span class="f-chart__sub" data-zh="共 49 个任务">49 tasks</span>
+            </figcaption>
+            <div class="f-bars" role="group" aria-labelledby="multi-dudu" data-f-chart>
+              <div class="f-bars__y" aria-hidden="true">
+                <span>14</span><span>7</span><span>0</span>
+              </div>
+              <ol class="f-bars__plot">
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周一">Mon</span
+                  ><span class="f-bars__tip" data-zh="6 个任务">6 tasks</span
+                  ><span class="f-bars__bar" style="--v: 6"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周二">Tue</span
+                  ><span class="f-bars__tip" data-zh="9 个任务">9 tasks</span
+                  ><span class="f-bars__bar" style="--v: 9"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周三">Wed</span
+                  ><span class="f-bars__tip" data-zh="12 个任务">12 tasks</span
+                  ><span class="f-bars__bar" style="--v: 12"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周四">Thu</span
+                  ><span class="f-bars__tip" data-zh="5 个任务">5 tasks</span
+                  ><span class="f-bars__bar" style="--v: 5"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周五">Fri</span
+                  ><span class="f-bars__tip" data-zh="10 个任务">10 tasks</span
+                  ><span class="f-bars__bar" style="--v: 10"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周六">Sat</span
+                  ><span class="f-bars__tip" data-zh="3 个任务">3 tasks</span
+                  ><span class="f-bars__bar" style="--v: 3"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周日">Sun</span
+                  ><span class="f-bars__tip" data-zh="4 个任务">4 tasks</span
+                  ><span class="f-bars__bar" style="--v: 4"></span>
+                </li>
+              </ol>
+            </div>
+          </figure>
+          <figure class="f-chart">
+            <figcaption class="f-chart__head">
+              <span class="f-chart__title" id="multi-nangnang" data-zh="囔囔">Nangnang</span>
+              <span class="f-chart__sub" data-zh="共 33 个任务">33 tasks</span>
+            </figcaption>
+            <div class="f-bars" role="group" aria-labelledby="multi-nangnang" data-f-chart>
+              <div class="f-bars__y" aria-hidden="true">
+                <span>14</span><span>7</span><span>0</span>
+              </div>
+              <ol class="f-bars__plot">
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周一">Mon</span
+                  ><span class="f-bars__tip" data-zh="4 个任务">4 tasks</span
+                  ><span class="f-bars__bar" style="--v: 4"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周二">Tue</span
+                  ><span class="f-bars__tip" data-zh="3 个任务">3 tasks</span
+                  ><span class="f-bars__bar" style="--v: 3"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周三">Wed</span
+                  ><span class="f-bars__tip" data-zh="8 个任务">8 tasks</span
+                  ><span class="f-bars__bar" style="--v: 8"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周四">Thu</span
+                  ><span class="f-bars__tip" data-zh="6 个任务">6 tasks</span
+                  ><span class="f-bars__bar" style="--v: 6"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周五">Fri</span
+                  ><span class="f-bars__tip" data-zh="9 个任务">9 tasks</span
+                  ><span class="f-bars__bar" style="--v: 9"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周六">Sat</span
+                  ><span class="f-bars__tip" data-zh="2 个任务">2 tasks</span
+                  ><span class="f-bars__bar" style="--v: 2"></span>
+                </li>
+                <li class="f-bars__col">
+                  <span class="f-bars__x" data-zh="周日">Sun</span
+                  ><span class="f-bars__tip" data-zh="1 个任务">1 tasks</span
+                  ><span class="f-bars__bar" style="--v: 1"></span>
+                </li>
+              </ol>
+            </div>
+          </figure>
+        </div>
+        <details class="site-markup">
+          <summary data-zh="标记">Markup</summary>
+          <pre class="f-code">
+&lt;div class="f-multiples" style="--max: 14; --h: 6rem"&gt;
+  &lt;figure class="f-chart"&gt;
+    &lt;figcaption class="f-chart__head"&gt;
+      &lt;span class="f-chart__title" id="duna"&gt;Duna&lt;/span&gt;
+    &lt;/figcaption&gt;
+    &lt;div class="f-bars" role="group" aria-labelledby="duna" data-f-chart&gt;…&lt;/div&gt;
+  &lt;/figure&gt;
+  &lt;!-- … one figure per series --&gt;
+&lt;/div&gt;</pre>
         </details>
       </section>
 

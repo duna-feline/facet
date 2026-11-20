@@ -11,6 +11,11 @@
     border: 0;
   }
 
+  /* Equal-width digits, for numbers that line up in a column. */
+  .f-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
   .f-stack {
     display: flex;
     flex-direction: column;
