@@ -6,8 +6,8 @@
     <title data-zh="组件 · facet">Components · facet</title>
     <meta
       name="description"
-      content="facet's components with their markup: nav, buttons, chips, segmented control, inputs, cards, charts, code, alerts, sheet, table of contents and footer."
-      data-zh="facet 的组件和它们的标记：导航、按钮、标签、分段控件、输入框、卡片、图表、代码、提示、弹出面板、目录和页脚。"
+      content="facet's components with their markup: nav, buttons, chips, segmented control, inputs, select, cards, charts, code, alerts, sheet, table of contents and footer."
+      data-zh="facet 的组件和它们的标记：导航、按钮、标签、分段控件、输入框、下拉选择、卡片、图表、代码、提示、弹出面板、目录和页脚。"
     />
     <script src="site.js"></script>
     <link rel="stylesheet" href="dist/facet.css" />
@@ -168,6 +168,278 @@
           <pre class="f-code">
 &lt;input class="f-input" type="text" aria-label="Name your cat" /&gt;
 &lt;input class="f-input f-search" type="search" aria-label="Search" /&gt;</pre>
+        </details>
+      </section>
+
+      <section id="select">
+        <h2 data-zh="下拉选择">Select</h2>
+        <p
+          data-zh="一个下拉框，里面是复选框（单选时用单选按钮）。它是 <code>details</code> 里的真实表单控件：没有 JavaScript 也能打开、关闭、勾选并随表单提交。<code>select.js</code> 加上搜索、触发按钮上的当前值、键盘操作和“清除”“完成”两个按钮。勾选立即生效：复选框自己的 <code>change</code> 事件会冒泡，看板可以马上重新筛选，不需要多点一次“应用”。手机上它从底部弹出。"
+        >
+          A dropdown of checkboxes, or of radios for a single choice. It is real form controls in a
+          <code>details</code>: without JavaScript it opens, closes, toggles and submits with a
+          form. <code>select.js</code> adds the search, the current value on the trigger, the
+          keyboard and the Clear and Done actions. A change applies at once: the boxes fire their
+          own bubbling <code>change</code> events, so a dashboard can filter right away, with no
+          extra Apply step. On phones it opens as a bottom sheet.
+        </p>
+        <div class="f-cluster">
+          <details
+            class="f-select"
+            id="demo-select"
+            data-f-select
+            data-f-select-none="All"
+            data-f-select-many="{n} selected"
+            data-zh-none="全部"
+            data-zh-many="已选 {n} 项"
+          >
+            <summary class="f-select__trigger">
+              <span class="f-select__label" data-zh="项目">Project</span>
+              <span class="f-select__value" data-zh="全部">All</span>
+            </summary>
+            <div class="f-select__panel">
+              <input
+                class="f-input f-search f-select__search"
+                type="search"
+                placeholder="Filter projects"
+                aria-label="Filter projects"
+                data-zh-placeholder="筛选项目"
+                hidden
+              />
+              <div class="f-select__list" role="group" aria-label="Project" data-zh-label="项目">
+                <label class="f-select__option"
+                  ><input type="checkbox" name="project" value="purrometheus" /><span
+                    >Purrometheus</span
+                  ></label
+                >
+                <label class="f-select__option"
+                  ><input type="checkbox" name="project" value="hairball" /><span
+                    >Hairball</span
+                  ></label
+                >
+                <label class="f-select__option"
+                  ><input type="checkbox" name="project" value="red-dot" /><span
+                    data-zh="红点追踪器"
+                    >Red Dot Tracker</span
+                  ></label
+                >
+                <label class="f-select__option"
+                  ><input type="checkbox" name="project" value="sunbeam" /><span data-zh="阳光地图"
+                    >Sunbeam Atlas</span
+                  ></label
+                >
+                <label class="f-select__option"
+                  ><input type="checkbox" name="project" value="nap" /><span data-zh="午睡排班"
+                    >Nap Scheduler</span
+                  ></label
+                >
+              </div>
+              <p class="f-select__empty" role="status" data-zh="没有匹配的项目" hidden>
+                No matching projects
+              </p>
+              <div class="f-select__foot" hidden>
+                <button class="f-btn f-btn--quiet" type="button" data-f-select-clear data-zh="清除">
+                  Clear
+                </button>
+                <button class="f-btn" type="button" data-f-select-done data-zh="完成">Done</button>
+              </div>
+            </div>
+          </details>
+          <details
+            class="f-select"
+            id="demo-select-long"
+            data-f-select
+            data-f-select-none="All"
+            data-f-select-many="{n} selected"
+            data-zh-none="全部"
+            data-zh-many="已选 {n} 项"
+          >
+            <summary class="f-select__trigger">
+              <span class="f-select__label" data-zh="仓库">Repository</span>
+              <span class="f-select__value" data-zh="全部">All</span>
+            </summary>
+            <div class="f-select__panel">
+              <input
+                class="f-input f-search f-select__search"
+                type="search"
+                placeholder="Filter 120 repositories"
+                aria-label="Filter repositories"
+                data-zh-placeholder="筛选 120 个仓库"
+                hidden
+              />
+              <div
+                class="f-select__list"
+                role="group"
+                aria-label="Repository"
+                data-zh-label="仓库"
+              ></div>
+              <p class="f-select__empty" role="status" data-zh="没有匹配的仓库" hidden>
+                No matching repositories
+              </p>
+              <div class="f-select__foot" hidden>
+                <button class="f-btn f-btn--quiet" type="button" data-f-select-clear data-zh="清除">
+                  Clear
+                </button>
+                <button class="f-btn" type="button" data-f-select-done data-zh="完成">Done</button>
+              </div>
+            </div>
+          </details>
+          <details class="f-select" id="demo-select-one" data-f-select>
+            <summary class="f-select__trigger">
+              <span class="f-select__label" data-zh="排序">Sort</span>
+              <span class="f-select__value" data-zh="最新">Newest</span>
+            </summary>
+            <div class="f-select__panel">
+              <div class="f-select__list" role="group" aria-label="Sort" data-zh-label="排序">
+                <label class="f-select__option"
+                  ><input type="radio" name="sort" value="new" checked /><span data-zh="最新"
+                    >Newest</span
+                  ></label
+                >
+                <label class="f-select__option"
+                  ><input type="radio" name="sort" value="old" /><span data-zh="最早"
+                    >Oldest</span
+                  ></label
+                >
+                <label class="f-select__option"
+                  ><input type="radio" name="sort" value="name" /><span data-zh="名称"
+                    >Name</span
+                  ></label
+                >
+              </div>
+            </div>
+          </details>
+        </div>
+        <script>
+          // 120 fictional repositories for the long list, built before select.js runs.
+          (() => {
+            const a = [
+              "red-dot",
+              "hairball",
+              "sunbeam",
+              "nap",
+              "kibble",
+              "yarn",
+              "whisker",
+              "purr",
+            ];
+            const b = [
+              "api",
+              "web",
+              "cli",
+              "docs",
+              "bot",
+              "sync",
+              "lab",
+              "tracker",
+              "cache",
+              "maps",
+            ];
+            const c = ["", "-v2", "-old", "-next"];
+            const list = document.querySelector("#demo-select-long .f-select__list");
+            const names = a.flatMap((x) => b.flatMap((y) => c.map((z) => `${x}-${y}${z}`)));
+            for (const name of names.slice(0, 120)) {
+              const label = document.createElement("label");
+              label.className = "f-select__option";
+              label.innerHTML = `<input type="checkbox" name="repo" value="${name}" /><span>${name}</span>`;
+              list.append(label);
+            }
+          })();
+          // The value text and the search placeholder follow the toolbar's language: select.js
+          // reads data-f-select-none and data-f-select-many, so swap them, then redraw.
+          document.addEventListener("site:change", () => {
+            const zh = document.documentElement.lang.startsWith("zh");
+            for (const el of document.querySelectorAll(
+              "[data-zh-none], [data-zh-placeholder], [data-zh-label]",
+            )) {
+              for (const [attr, zhKey] of [
+                ["fSelectNone", "zhNone"],
+                ["fSelectMany", "zhMany"],
+                ["placeholder", "zhPlaceholder"],
+                ["aria-label", "zhLabel"],
+              ]) {
+                if (el.dataset[zhKey] === undefined) continue;
+                // Attributes (placeholder, aria-label) or select.js's data-* settings.
+                const isAttr = !attr.startsWith("fSelect");
+                const store = `en_${zhKey}`;
+                if (el.dataset[store] === undefined)
+                  el.dataset[store] = isAttr ? el.getAttribute(attr) : el.dataset[attr];
+                const text = zh ? el.dataset[zhKey] : el.dataset[store];
+                if (isAttr) el.setAttribute(attr, text);
+                else el.dataset[attr] = text;
+              }
+            }
+            for (const el of document.querySelectorAll("[data-f-select]"))
+              el.dispatchEvent(new Event("change"));
+          });
+        </script>
+        <ul>
+          <li
+            data-zh="触发按钮显示 <code>data-f-select-none</code>（没有勾选时，默认 “All”）、唯一选中项的文字，或 <code>data-f-select-many</code>（把 <code>{n}</code> 换成数量，默认 “{n} selected”）。中文页面请把这两个属性写成中文。没有 JavaScript 时，它一直显示标记里写的文字。"
+          >
+            The trigger shows <code>data-f-select-none</code> when nothing is checked (default
+            “All”), the one checked option's text, or <code>data-f-select-many</code> with
+            <code>{n}</code> replaced by the count (default “{n} selected”). Write both in the
+            page's language. Without JavaScript it keeps the text in the markup.
+          </li>
+          <li
+            data-zh="键盘：在触发按钮上按 Enter、空格或下箭头打开；上下箭头、Home 和 End 在搜索框和选项之间移动；空格勾选；Enter 或 Esc 关闭并把焦点还给触发按钮；在选项上直接打字会输入到搜索框。点击外面或焦点移出时也会关闭。"
+          >
+            Keys: Enter, Space or ArrowDown on the trigger opens it; arrows, Home and End move
+            between the search and the options; Space toggles; Enter or Escape closes and returns
+            focus to the trigger; typing on an option goes to the search. A click outside, or focus
+            moving out, closes it too.
+          </li>
+          <li
+            data-zh="列表最高 18rem，超出后在面板里滚动，所以几百个选项也没问题。用单选按钮时它就是单选下拉框，用鼠标选中后自动关闭。触发按钮靠近右边时加 <code>f-select--end</code>，面板右对齐；有 JavaScript 时，会越出窗口的面板也会自动左移。"
+          >
+            The list stops at 18rem and scrolls inside the panel, so hundreds of options work. With
+            radios it is a single select, which closes once an option is picked with the pointer.
+            Add <code>f-select--end</code> to a trigger near the right edge to align the panel to
+            its right; with JavaScript a panel that would leave the window also shifts left.
+          </li>
+          <li
+            data-zh="点击外面会关闭面板，这靠的是触发按钮上一层铺满窗口的透明层。如果它放在带 <code>backdrop-filter</code> 或 <code>transform</code> 的元素里（比如玻璃导航栏），这一层只能盖住那个元素；这时靠 JavaScript 关闭。"
+          >
+            Without JavaScript a click outside closes the panel through a clear layer on the trigger
+            that covers the window. Inside an element with <code>backdrop-filter</code> or
+            <code>transform</code> (a glass nav, say) that layer only covers that element, and
+            JavaScript does the closing.
+          </li>
+        </ul>
+        <details class="site-markup">
+          <summary data-zh="标记">Markup</summary>
+          <pre class="f-code">
+&lt;details class="f-select" data-f-select
+  data-f-select-none="All" data-f-select-many="{n} selected"&gt;
+  &lt;summary class="f-select__trigger"&gt;
+    &lt;span class="f-select__label"&gt;Project&lt;/span&gt;
+    &lt;span class="f-select__value"&gt;All&lt;/span&gt;
+  &lt;/summary&gt;
+  &lt;div class="f-select__panel"&gt;
+    &lt;!-- Shown by select.js; hidden without JavaScript --&gt;
+    &lt;input class="f-input f-search f-select__search" type="search"
+      aria-label="Filter projects" hidden /&gt;
+    &lt;div class="f-select__list" role="group" aria-label="Project"&gt;
+      &lt;label class="f-select__option"&gt;
+        &lt;input type="checkbox" name="project" value="hairball" /&gt;&lt;span&gt;Hairball&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;!-- …; type="radio" for a single choice --&gt;
+    &lt;/div&gt;
+    &lt;p class="f-select__empty" role="status" hidden&gt;No matching projects&lt;/p&gt;
+    &lt;div class="f-select__foot" hidden&gt;
+      &lt;button class="f-btn f-btn--quiet" type="button" data-f-select-clear&gt;Clear&lt;/button&gt;
+      &lt;button class="f-btn" type="button" data-f-select-done&gt;Done&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/details&gt;
+
+&lt;script&gt;
+  // Changes apply at once: read the checked boxes on change.
+  document.querySelector(".f-select").addEventListener("change", (e) =&gt; {
+    const picked = [...e.currentTarget.querySelectorAll("input:checked")].map((i) =&gt; i.value);
+  });
+&lt;/script&gt;</pre>
         </details>
       </section>
 
